@@ -3,7 +3,7 @@ const post = mongoose.Schema({
     english_name: String,
     botanical_name: String,
     description: String,
-    image: URL,
+    image: String, // had to change for "URL" app was crashing
     category: String,
     factSheet: {
         flower_color: String,
