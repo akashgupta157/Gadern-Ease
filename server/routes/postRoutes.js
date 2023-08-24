@@ -12,6 +12,16 @@ postRouter.get("/",async(req,res)=>{
     }
 })
 
+postRouter.get("/:category",async(req,res)=>{ // filter based on Category
+    const {category}=req.params
+    try {
+        const posts=await postModel.find({category:category});
+        res.status(200).send(posts)
+    } catch (error) {
+        res.status(500).send({"error":"Internal Server Error"})
+    }
+})
+
 postRouter.get("/:id",async(req,res)=>{
     const {id}=req.params;
     try {
@@ -31,12 +41,11 @@ postRouter.post("/add",async(req,res)=>{
         res.status(500).send({"error":"Internal Server Error"})
     }
 })
-
 postRouter.patch("/update/:id",async(req,res)=>{
     const {id}=req.params;
     const post=await postModel.findOne({_id:id})
     try {
-        if(req.body.username!==post.username){
+        if(req.body.userName!==post.userName){
             res.send({"msg":"You are not authorizes to make changes"})
         }else{
             await postModel.findByIdAndUpdate({_id:id},{...req.body})
@@ -52,7 +61,7 @@ postRouter.delete("/delete/:id",async(req,res)=>{
     const {id}=req.params;
     const post=await postModel.findOne({_id:id})
     try {
-        if(req.body.username!==post.username){
+        if(req.body.userName!==post.userName){
             res.send({"msg":"You are not authorizes to make changes"})
         }else{
             await postModel.findByIdAndDelete({_id:id})
