@@ -1,10 +1,15 @@
 import React from "react";
-import { Plants } from "./pages/Plants";
-
+import Allroutes from "./Allroutes";
+import { Navbar } from "./components/Navbar";
+import { useLocation } from "react-router-dom";
 export default function App() {
+  const path = useLocation();
   return (
     <div>
-      <Plants />
+      {path.pathname === "/login" || path.pathname === "/register" ? null : (
+        <Navbar />
+      )}
+      <Allroutes />
     </div>
   );
 }
