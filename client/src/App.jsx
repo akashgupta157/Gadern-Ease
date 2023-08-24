@@ -4,7 +4,6 @@ import { Navbar } from "./components/Navbar";
 import { useLocation } from "react-router-dom";
 export default function App() {
   const path = useLocation();
-  console.log(path.pathname);
   return (
     <div>
       {path.pathname === "/login" || path.pathname === "/register" ? null : (
