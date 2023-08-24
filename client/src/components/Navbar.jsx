@@ -25,9 +25,7 @@ export const Navbar = () => {
 <div style={allname}>More Plants </div>
 <div style={allname}>Topics</div>
  </div>
-<div style={{margin:"auto" }}>
-<img src="newa.jpg" alt=""  style={{width:"1000px ",margin:"auto" }}/>  
-</div>
+
 
 
 </div>
