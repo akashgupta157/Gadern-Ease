@@ -4,8 +4,24 @@ const postRouter=express.Router();
 
 
 postRouter.get("/",async(req,res)=>{
+    const {q}=req.query;
+    let query={}
+    if(q){
+        query.english_name={$regex:q,$options:"i"}
+    }
+    
     try {
-        const posts=await postModel.find();
+        const posts=await postModel.find(query);
+        res.status(200).send(posts)
+    } catch (error) {
+        res.status(500).send({"error":"Internal Server Error"})
+    }
+})
+
+postRouter.get("/:category",async(req,res)=>{ // filter based on Category
+    const {category}=req.params
+    try {
+        const posts=await postModel.find({category:category});
         res.status(200).send(posts)
     } catch (error) {
         res.status(500).send({"error":"Internal Server Error"})
