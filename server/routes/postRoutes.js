@@ -2,14 +2,13 @@ const express=require("express");
 const postModel = require("../models/post.model");
 const postRouter=express.Router();
 
-
-postRouter.get("/",async(req,res)=>{
+// TO GET ALL POST
+postRouter.get("/",async(req,res)=>{ // to get all the blog posts searching by english_name has been applied
     const {q}=req.query;
     let query={}
     if(q){
         query.english_name={$regex:q,$options:"i"}
     }
-    
     try {
         const posts=await postModel.find(query);
         res.status(200).send(posts)
@@ -18,6 +17,7 @@ postRouter.get("/",async(req,res)=>{
     }
 })
 
+// TO GET POST BASED ON THEIR CATEGORY
 postRouter.get("/:category",async(req,res)=>{ // filter based on Category
     const {category}=req.params
     try {
@@ -27,18 +27,8 @@ postRouter.get("/:category",async(req,res)=>{ // filter based on Category
         res.status(500).send({"error":"Internal Server Error"})
     }
 })
-
-postRouter.get("/:category",async(req,res)=>{ // filter based on Category
-    const {category}=req.params
-    try {
-        const posts=await postModel.find({category:category});
-        res.status(200).send(posts)
-    } catch (error) {
-        res.status(500).send({"error":"Internal Server Error"})
-    }
-})
-
-postRouter.get("/:id",async(req,res)=>{
+// GET A PARTICULAR POST
+postRouter.get("/:id",async(req,res)=>{ // to get a particular post
     const {id}=req.params;
     try {
         const post=await postModel.findOne({_id:id});
@@ -48,16 +38,9 @@ postRouter.get("/:id",async(req,res)=>{
     }
 })
 
-postRouter.post("/add",async(req,res)=>{
-    try {
-        const newPost=new postModel(req.body);
-        await newPost.save();
-        res.status(201).send({'msg':"New Post has been created"})
-    } catch (error) {
-        res.status(500).send({"error":"Internal Server Error"})
-    }
-})
-postRouter.patch("/update/:id",async(req,res)=>{
+
+// UPDATE
+postRouter.patch("/update/:id",async(req,res)=>{ // to make any changes in a post
     const {id}=req.params;
     const post=await postModel.findOne({_id:id})
     try {
@@ -72,8 +55,8 @@ postRouter.patch("/update/:id",async(req,res)=>{
     }
 })
 
-
-postRouter.delete("/delete/:id",async(req,res)=>{
+// DELETE
+postRouter.delete("/delete/:id",async(req,res)=>{ // to delete a post
     const {id}=req.params;
     const post=await postModel.findOne({_id:id})
     try {
