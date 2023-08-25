@@ -7,11 +7,12 @@ export default function App() {
   const path = useLocation();
   return (
     <div>
-      {/* {path.pathname === "/login" || path.pathname === "/register" ? null : (
+       {path.pathname === "/login" || path.pathname === "/register" ? null : (
         <Navbar />
       )}
-      <Allroutes /> */}
-      <Plants />
+
+      <Allroutes /> 
+     
     </div>
   );
 }

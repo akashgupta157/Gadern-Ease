@@ -7,8 +7,8 @@ import { url } from "../components/url";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useToast } from "@chakra-ui/react";
-// import { login } from "../redux/reducers/authReducer/action";
-// import { useDispatch } from "react-redux";
+import { login } from "../redux/authReducer/action";
+import { useDispatch } from "react-redux";
 const Login = () => {
   const {
     handleSubmit,
@@ -20,7 +20,7 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   const Nav = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const handleSubmitForm = async (data) => {
@@ -38,10 +38,10 @@ const Login = () => {
           duration: 2000,
           isClosable: true,
         });
-        // dispatch(login(res.data));
+        dispatch(login(res.data));
         setLoading(false);
         setTimeout(() => {
-          Nav("/");
+          Nav("/blog_post");
         }, 1500);
       } else {
         toast({
