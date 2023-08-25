@@ -1,5 +1,19 @@
-import React from "react";
-import { Box, Text, VStack, Button, Flex, Image } from "@chakra-ui/react";
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  Box,
+  Text,
+  VStack,
+  Button,
+  Flex,
+  Image,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from "@chakra-ui/react";
+import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
+import { Plantscard } from "../components/Plants/Plantscard";
 export const Plants = () => {
   const textStyle = {
     mt: "0px",
@@ -18,6 +32,16 @@ export const Plants = () => {
       backgroundColor: "none",
     },
   };
+  const [fetchedData, setFetchedData] = useState([]);
+
+  const handleButtonClick = async (category) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/posts/${category}`);
+      setFetchedData(res.data);
+    } catch (error) {
+      console.log("Error fetching data:", error.message);
+    }
+  };
   return (
     <Box border={"2px solid red"}>
       <Text
@@ -28,7 +52,7 @@ export const Plants = () => {
         fontSize={"56px"}
         fontWeight={700}
         fontStretch={"100%"}
-        text-decoration={"none solid rgb(109, 182, 68)"}
+        textDecoration={"none solid rgb(109, 182, 68)"}
       >
         Plants
       </Text>
@@ -91,7 +115,10 @@ export const Plants = () => {
                 <Text style={textStyle}>Bulbous and tuberous plants</Text>
               </VStack>
             </Button>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Perennials")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Shrubs">
                   <Image
@@ -238,7 +265,7 @@ export const Plants = () => {
         </Flex>
       </Box>
       <Box bgColor={"#F5F5F5"}>
-        <Box width={"75%"} margin={"auto"} p={"30px 0px"}>
+        <Box width={"75%"} margin={"auto"} p={"30px 0px 90px 0px"}>
           <Text
             textAlign={"left"}
             lineHeight={"32px"}
@@ -246,10 +273,335 @@ export const Plants = () => {
             fontWeight={700}
             fontStretch={"100%"}
             text-decoration={"none solid rgb(64, 64, 64)"}
+            pb={"20px"}
           >
             Filter by Plant
           </Text>
+          <Flex justifyContent={"space-around"}>
+            <Box>
+              <Accordion
+                allowMultiple
+                position={"absolute"}
+                bg={"white"}
+                _hover={{ bg: "white" }}
+                box-shadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              >
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <AccordionButton _hover={{ bg: "white" }} w={"200px"}>
+                        <Image
+                          w={"35px"}
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa374wI2e0xacLz9dvTjOAogn5jQTiQsNUSg&usqp=CAU"
+                        />
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontSize={15}
+                          pl={"5px"}
+                          pr={"10px"}
+                        >
+                          Flower color
+                        </Box>
+                        {isExpanded ? (
+                          <TbTriangleInvertedFilled
+                            fontSize="11px"
+                            color="#6DB644"
+                          />
+                        ) : (
+                          <TbTriangleFilled fontSize="11px" color="#6DB644" />
+                        )}
+                      </AccordionButton>
+
+                      <AccordionPanel
+                        pb={2}
+                        cursor="pointer"
+                        textAlign={"left"}
+                        fontSize={"14px"}
+                      >
+                        blue
+                      </AccordionPanel>
+                      <AccordionPanel
+                        textAlign={"left"}
+                        pb={2}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        brown
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        green
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        multicolored
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        orange
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        pink
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        purple
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        red
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        white
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        yellow
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              </Accordion>
+            </Box>
+            <Box>
+              <Accordion
+                allowMultiple
+                position={"absolute"}
+                bg={"white"}
+                _hover={{ bg: "white" }}
+                box-shadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              >
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <AccordionButton _hover={{ bg: "white" }} w={"200px"}>
+                        <Image
+                          w={"35px"}
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr1Jbsv-Mf5uWHSmkZZ-TQi-xoeF1aEnas1jNCZOp-YPrbe_4xde9LfNau_p7zcpqVDo0&usqp=CAU"
+                        />
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontSize={15}
+                          pl={"5px"}
+                          pr={"10px"}
+                        >
+                          Growth height
+                        </Box>
+                        {isExpanded ? (
+                          <TbTriangleInvertedFilled
+                            fontSize="11px"
+                            color="#6DB644"
+                          />
+                        ) : (
+                          <TbTriangleFilled fontSize="11px" color="#6DB644" />
+                        )}
+                      </AccordionButton>
+
+                      <AccordionPanel
+                        pb={2}
+                        cursor="pointer"
+                        textAlign={"left"}
+                        fontSize={"14px"}
+                      >
+                        small
+                      </AccordionPanel>
+                      <AccordionPanel
+                        textAlign={"left"}
+                        pb={2}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        medium
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        large
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              </Accordion>
+            </Box>
+            <Box>
+              <Accordion
+                allowMultiple
+                position={"absolute"}
+                bg={"white"}
+                _hover={{ bg: "white" }}
+                box-shadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              >
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <AccordionButton _hover={{ bg: "white" }} w={"200px"}>
+                        <Image
+                          w={"40px"}
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE-R4MYwIOReYKc6izTyszKECvB5dTgy4MCA&usqp=CAU"
+                        />
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontSize={15}
+                          pl={"5px"}
+                          pr={"10px"}
+                        >
+                          Light
+                        </Box>
+                        {isExpanded ? (
+                          <TbTriangleInvertedFilled
+                            fontSize="11px"
+                            color="#6DB644"
+                          />
+                        ) : (
+                          <TbTriangleFilled fontSize="11px" color="#6DB644" />
+                        )}
+                      </AccordionButton>
+
+                      <AccordionPanel
+                        pb={2}
+                        cursor="pointer"
+                        textAlign={"left"}
+                        fontSize={"14px"}
+                      >
+                        small
+                      </AccordionPanel>
+                      <AccordionPanel
+                        textAlign={"left"}
+                        pb={2}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        medium
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        large
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              </Accordion>
+            </Box>
+            <Box>
+              <Accordion
+                allowMultiple
+                position={"absolute"}
+                bg={"white"}
+                _hover={{ bg: "white" }}
+                box-shadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              >
+                <AccordionItem>
+                  {({ isExpanded }) => (
+                    <>
+                      <AccordionButton _hover={{ bg: "white" }} w={"200px"}>
+                        <Image
+                          w={"50px"}
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT76HkxhJJGhRTvTaqW2PhaYxWqYuuOh4VqBw&usqp=CAU"
+                        />
+                        <Box
+                          as="span"
+                          flex="1"
+                          textAlign="left"
+                          fontSize={15}
+                          pl={"5px"}
+                          pr={"10px"}
+                        >
+                          Garden Style
+                        </Box>
+                        {isExpanded ? (
+                          <TbTriangleInvertedFilled
+                            fontSize="11px"
+                            color="#6DB644"
+                          />
+                        ) : (
+                          <TbTriangleFilled fontSize="11px" color="#6DB644" />
+                        )}
+                      </AccordionButton>
+
+                      <AccordionPanel
+                        pb={2}
+                        cursor="pointer"
+                        textAlign={"left"}
+                        fontSize={"14px"}
+                      >
+                        small
+                      </AccordionPanel>
+                      <AccordionPanel
+                        textAlign={"left"}
+                        pb={2}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        medium
+                      </AccordionPanel>
+                      <AccordionPanel
+                        pb={2}
+                        textAlign={"left"}
+                        cursor="pointer"
+                        fontSize={"14px"}
+                      >
+                        large
+                      </AccordionPanel>
+                    </>
+                  )}
+                </AccordionItem>
+              </Accordion>
+            </Box>
+          </Flex>
         </Box>
+      </Box>
+      {/* Render fetched data */}
+      <Box w={"75%"} margin={"auto"}>
+        {fetchedData?.map((el) => {
+          return <Plantscard key={el._id} {...el} />;
+        })}
       </Box>
     </Box>
   );
