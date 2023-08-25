@@ -3,7 +3,7 @@ const post = mongoose.Schema({
     english_name: String,
     botanical_name: String,
     description: String,
-    image: String, // had to change for "URL" app was crashing
+    image: String,
     category: String,
     factSheet: {
         flower_color: String,
@@ -15,7 +15,8 @@ const post = mongoose.Schema({
     location: String,
     fertilizing: String,
     diseases_pests: String,
-    userName: String
+    userId: String,
+    userName: String,
 }, {
     timestamps: true
 })

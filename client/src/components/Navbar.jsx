@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 
 
+
  return <div style={mystyle}>
     <div> <img src="logo.jpeg" alt="" style={{width:"250px"}}/></div>
 
@@ -53,4 +54,5 @@ export const Navbar = () => {
  
 
 }
+
 
