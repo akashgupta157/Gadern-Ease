@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
 import { Plantscard } from "../components/Plants/Plantscard";
+
 export const Plants = () => {
   const textStyle = {
     mt: "0px",
@@ -32,21 +33,33 @@ export const Plants = () => {
       backgroundColor: "none",
     },
   };
-  const [fetchedData, setFetchedData] = useState([]);
 
-  const handleButtonClick = async (category) => {
+  const [fetchedData, setFetchedData] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState("Houseplants");
+
+  const fetchCategoryData = async (category) => {
     try {
-      const res = await axios.get(`http://localhost:5000/posts/${category}`);
+      const res = await axios.get(
+        `http://localhost:5000/posts/plant/${category}`
+      );
       setFetchedData(res.data);
     } catch (error) {
-      console.log("Error fetching data:", error.message);
+      console.error("Error fetching data:", error);
     }
+  };
+
+  useEffect(() => {
+    fetchCategoryData(currentCategory);
+  }, [currentCategory]);
+
+  const handleButtonClick = (category) => {
+    setCurrentCategory(category);
   };
   return (
     <Box border={"2px solid red"}>
       <Text
         textAlign={"center"}
-        font={"Roboto"}
+        fontFamily={["Roboto", "sans-serif"]}
         color={"#6DB644"}
         lineHeight={"67.2px"}
         fontSize={"56px"}
@@ -54,11 +67,14 @@ export const Plants = () => {
         fontStretch={"100%"}
         textDecoration={"none solid rgb(109, 182, 68)"}
       >
-        Plants
+        {currentCategory}
       </Text>
       <Box margin={"auto"} mt={"80px"} mb={"20px"}>
         <Flex alignItems={"center"} justifyContent={"center"}>
-          <Button style={btnStyle}>
+          <Button
+            style={btnStyle}
+            onClick={() => handleButtonClick("Aquatic plants")}
+          >
             <VStack spacing={0}>
               <Box as="span" title="Aquatic plants">
                 <Image
@@ -74,7 +90,10 @@ export const Plants = () => {
           </Button>
 
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Balcony Flowers")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Balcony flowers">
                   <Image
@@ -87,7 +106,10 @@ export const Plants = () => {
                 <Text style={textStyle}>Balcony Flowers</Text>
               </VStack>
             </Button>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Ornamental grasses")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Ornamental grasses">
                   <Image
@@ -102,7 +124,10 @@ export const Plants = () => {
             </Button>
           </VStack>
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Bulbous and tuberous plants")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Bulbous plants">
                   <Image
@@ -133,7 +158,10 @@ export const Plants = () => {
             </Button>
           </VStack>
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Climbing plants")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Climbers">
                   <Image
@@ -147,7 +175,7 @@ export const Plants = () => {
                 <Text style={textStyle}>Climbing plants</Text>
               </VStack>
             </Button>
-            <Button style={btnStyle}>
+            <Button style={btnStyle} onClick={() => handleButtonClick("Roses")}>
               <VStack spacing={0}>
                 <Box as="span" title="Rosen">
                   <Image
@@ -162,7 +190,10 @@ export const Plants = () => {
             </Button>
           </VStack>
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Container plants")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Container plants">
                   <Image
@@ -176,7 +207,10 @@ export const Plants = () => {
               </VStack>
             </Button>
 
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Summer flowers")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Summer flowers">
                   <Image
@@ -191,7 +225,7 @@ export const Plants = () => {
             </Button>
           </VStack>
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button style={btnStyle} onClick={() => handleButtonClick("Fruit")}>
               <VStack spacing={0}>
                 <Box as="span" title="Obst">
                   <Image
@@ -205,7 +239,10 @@ export const Plants = () => {
               </VStack>
             </Button>
 
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Trees and Shrubs")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Trees and shrubs">
                   <Image
@@ -220,7 +257,7 @@ export const Plants = () => {
             </Button>
           </VStack>
           <VStack spacing={5}>
-            <Button style={btnStyle}>
+            <Button style={btnStyle} onClick={() => handleButtonClick("Herbs")}>
               <VStack spacing={0}>
                 <Box as="span" title="Herbs">
                   <Image
@@ -234,7 +271,10 @@ export const Plants = () => {
               </VStack>
             </Button>
 
-            <Button style={btnStyle}>
+            <Button
+              style={btnStyle}
+              onClick={() => handleButtonClick("Vegetables")}
+            >
               <VStack spacing={0}>
                 <Box as="span" title="Vegetables">
                   <Image
@@ -249,7 +289,10 @@ export const Plants = () => {
             </Button>
           </VStack>
 
-          <Button style={btnStyle}>
+          <Button
+            style={btnStyle}
+            onClick={() => handleButtonClick("Houseplants")}
+          >
             <VStack spacing={0}>
               <Box as="span" title="Houseplants">
                 <Image
@@ -264,6 +307,7 @@ export const Plants = () => {
           </Button>
         </Flex>
       </Box>
+      {/* filter */}
       <Box bgColor={"#F5F5F5"}>
         <Box width={"75%"} margin={"auto"} p={"30px 0px 90px 0px"}>
           <Text
@@ -506,7 +550,7 @@ export const Plants = () => {
                         textAlign={"left"}
                         fontSize={"14px"}
                       >
-                        small
+                        sunny
                       </AccordionPanel>
                       <AccordionPanel
                         textAlign={"left"}
@@ -514,7 +558,7 @@ export const Plants = () => {
                         cursor="pointer"
                         fontSize={"14px"}
                       >
-                        medium
+                        shade
                       </AccordionPanel>
                       <AccordionPanel
                         pb={2}
@@ -522,7 +566,7 @@ export const Plants = () => {
                         cursor="pointer"
                         fontSize={"14px"}
                       >
-                        large
+                        semi-shade
                       </AccordionPanel>
                     </>
                   )}
@@ -597,11 +641,22 @@ export const Plants = () => {
           </Flex>
         </Box>
       </Box>
-      {/* Render fetched data */}
-      <Box w={"75%"} margin={"auto"}>
-        {fetchedData?.map((el) => {
-          return <Plantscard key={el._id} {...el} />;
-        })}
+      <Box margin={"auto"} w={"75%"}>
+        <Box
+          w={["80%", "75%", "70%", "70%"]}
+          display={"grid"}
+          placeContent={"center"}
+          gridTemplateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+        >
+          {fetchedData?.map((el) => {
+            return <Plantscard key={el._id} {...el} />;
+          })}
+        </Box>
       </Box>
     </Box>
   );
