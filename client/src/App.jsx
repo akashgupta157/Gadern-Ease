@@ -9,12 +9,8 @@ export default function App() {
     <div>
       {path.pathname === "/login" || path.pathname === "/register" ? null : (
         <Navbar />
-       
       )}
-
-
       <Allroutes />
-
     </div>
   );
 }
