@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
         color :"#404040",
         position: "sticky",
   top: "0"
-  ,
+  ,zIndex:"1"
     }
     const allname={
         margin:"24px",
@@ -21,38 +21,38 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 
 
-
  return <div style={mystyle}>
     <div> <img src="logo.jpeg" alt="" style={{width:"250px"}}/></div>
 
     <Link to="/" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Home </h3>
+      <h3   style={allname}>Home </h3>
     </Link>
-    <Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Gardening Practice</h3>
+    <Link to="/plants" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3   style={allname}>Gardening Practice</h3>
     </Link>
-    <Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Plants</h3>
+    <Link to="/plants" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3 style={allname}>Plants</h3>
     </Link>
-    <Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Perennials</h3>
+    <Link to="/plants" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3   style={allname}>Perennials</h3>
     </Link>
-    <Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Trees & Shrubs</h3>
+    <Link to="/plants" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3   style={allname}>Trees & Shrubs</h3>
     </Link>
     
-    <Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>Topics</h3>
+    <Link to="/plants" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3   style={allname}>Topics</h3>
     </Link>
 
-<Link to="/signup" style={{textDecoration: 'none'  , color:"black"}}>
-      <h3 data-testid="home-link"  style={allname}>SignUp</h3>
+<Link to="/register" style={{textDecoration: 'none'  , color:"black"}}>
+      <h3   style={allname}>SignUp</h3>
     </Link>
 
-
+    
  </div>
+
+ 
  
 
 }
-
 
