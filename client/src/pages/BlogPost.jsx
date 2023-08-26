@@ -53,7 +53,6 @@ const BlogPost = () => {
     diseases_pests: "",
   });
   const auth = useSelector((state) => state);
-  // console.log(auth.authReducer.user.token);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({

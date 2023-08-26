@@ -9,6 +9,6 @@ export default function Allroutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/blog_post" element={<BlogPost />} />
-    </Routes>
+    </Routes> 
   );
 }
