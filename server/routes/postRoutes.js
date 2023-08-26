@@ -6,12 +6,31 @@ const postRouter = express.Router();
 
 // TO GET ALL POST
 postRouter.get("/",async(req,res)=>{ // to get all the blog posts searching by english_name has been applied
-    const {q}=req.query;
+    const { q, flower_color, growth_height, light, garden_style } = req.query;
     let query={}
     if(q){
         query.english_name={$regex:q,$options:"i"}
     }
-   try {
+    if (q) {
+        query.english_name = { $regex: q, $options: "i" };
+    }
+
+    if (flower_color) {
+        query["factSheet.flower_color"] = flower_color;
+    }
+
+    if (growth_height) {
+        query["factSheet.growth_height"] = growth_height;
+    }
+
+    if (light) {
+        query["factSheet.light"] = light;
+    }
+
+    if (garden_style) {
+        query["factSheet.garden_style"] = garden_style;
+    }
+    try {
         const posts = await postModel.find(query);
         res.status(200).send(posts)
     } catch (error) {
@@ -34,7 +53,7 @@ postRouter.get("/:id",async(req,res)=>{ // to get a particular post
 // CREATE
 postRouter.post("/add", authMiddleware, async (req, res) => {
     try {
-        console.log(req.name)
+        // console.log(req.name)
         const newPost = new postModel({ ...req.body, userName: req.name, userId: req.userId });
         await newPost.save();
         res.send({ message: "Data added" })
@@ -45,19 +64,40 @@ postRouter.post("/add", authMiddleware, async (req, res) => {
 
 
 // TO GET POST BASED ON THEIR CATEGORY
-postRouter.get("/:category", async (req, res) => { // filter based on Category
-    const { category } = req.params
-    try {
-        const posts = await postModel.find({ category: category });
-        res.status(200).send(posts)
-    } catch (error) {
-        res.status(500).send({ "error": "Internal Server Error" })
+postRouter.get("/plant/:category", async (req, res) => { // filter based on category
+    const { category } = req.params;
+    const { flower_color, growth_height, light, garden_style } = req.query;
+    let query = { category };
+
+    if (flower_color) {
+        query["factSheet.flower_color"] = flower_color;
     }
-})
+    if (growth_height) {
+        query["factSheet.growth_height"] = growth_height;
+    }
+    if (light) {
+        query["factSheet.light"] = light;
+    }
+
+    if (garden_style) {
+        query["factSheet.garden_style"] = garden_style;
+    }
+    // console.log("Query:", query); // Log the query
+    // console.log("Params:", req.params); // Log the params
+    try {
+        const posts = await postModel.find(query);
+        res.status(200).send(posts);
+    } catch (error) {
+        console.error("Error:", error); // Log the error
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
+
 
 
 // UPDATE
-postRouter.patch("/update/:id", async (req, res) => { //to make changes in the post
+postRouter.patch("/update/:id",authMiddleware, async (req, res) => { //to make changes in the post
     const { id } = req.params;
     const post = await postModel.findOne({ _id: id })
     try {
@@ -73,7 +113,7 @@ postRouter.patch("/update/:id", async (req, res) => { //to make changes in the p
 })
 
 // DELETE
-postRouter.delete("/delete/:id",async(req,res)=>{ // to delete a post
+postRouter.delete("/delete/:id",authMiddleware,async(req,res)=>{ // to delete a post
     const {id}=req.params;
     const post=await postModel.findOne({_id:id})
     try {
