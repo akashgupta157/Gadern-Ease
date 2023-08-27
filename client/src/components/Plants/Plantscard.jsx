@@ -1,11 +1,18 @@
 import React from "react";
 import { Box, Image, Text } from "@chakra-ui/react";
-export const Plantscard = ({ image, english_name }) => {
+import { useNavigate } from "react-router-dom";
+export const Plantscard = ({ _id, image, english_name }) => {
+  const navigate = useNavigate();
   return (
     <Box
+      display={"flex"}
+      flexDirection={["row", "row", "column", "column"]}
       mt={"50px"}
-      w={"240px"}
-      h={"320px"}
+      pl={["5px", "0px", "0px", "0px"]}
+      pr={["5px", "0px", "0px", "0px"]}
+      width={["380px", "500px", "260px", "240px"]}
+      height={["150px", "150px", "320px", "320px"]}
+      marginLeft={["5px", "5px", "0px", "0px"]}
       borderRadius={"10px"}
       boxShadow={
         " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;"
@@ -13,10 +20,11 @@ export const Plantscard = ({ image, english_name }) => {
       cursor={"pointer"}
     >
       <Image
+        onClick={() => navigate(`/plants/${_id}`)}
         src={image}
         borderRadius={"8px 8px 0px 0px"}
-        w={"240px"}
-        h={"220px"}
+        width={["180px", "200px", "260px", "240px"]}
+        height={["150px", "150px", "200px", "220px"]}
       />
       <Text
         fontFamily={"Roboto(woff2),sans-serif"}
