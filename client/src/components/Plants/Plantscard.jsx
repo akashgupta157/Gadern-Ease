@@ -20,6 +20,7 @@ export const Plantscard = ({ _id, image, english_name }) => {
       cursor={"pointer"}
     >
       <Image
+        loading="lazy"
         onClick={() => navigate(`/plants/${_id}`)}
         src={image}
         borderRadius={"8px 8px 0px 0px"}
