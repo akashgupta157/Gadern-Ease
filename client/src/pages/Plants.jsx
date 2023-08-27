@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Grid, Image, Text } from "@chakra-ui/react";
 import { Plantscard } from "../components/Plants/Plantscard";
 import { PlantsFilter } from "../components/Plants/PlantsFilter";
 import { useSearchParams } from "react-router-dom";
@@ -95,23 +95,20 @@ export const Plants = () => {
             </Text>
           </Box>
         ) : (
-          fetchedData?.map((el) => {
-            return (
-              <Box
-                display={"grid"}
-                placeContent={"center"}
-                gridTemplateColumns={{
-                  base: "repeat(1, 1fr)",
-                  sm: "repeat(1, 1fr)",
-                  md: "repeat(2, 1fr)",
-                  lg: "repeat(3, 1fr)",
-                }}
-              >
-                {" "}
-                <Plantscard key={el._id} {...el} />
-              </Box>
-            );
-          })
+          <Box
+            display={"grid"}
+            placeContent={"center"}
+            gridTemplateColumns={{
+              base: "repeat(1, 1fr)",
+              sm: "repeat(1, 1fr)",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+          >
+            {fetchedData?.map((el) => {
+              return <Plantscard key={el._id} {...el} />;
+            })}
+          </Box>
         )}
       </Box>
     </Box>
