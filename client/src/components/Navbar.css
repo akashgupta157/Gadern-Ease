@@ -1,0 +1,22 @@
+ *{
+  font-family:Roboto, sans-serif ;
+ }
+ 
+ .mystyle {
+    display:flex ;
+    justify-content :space-between;
+    text-align:center;
+    font-size:15px ;
+    font-weight: bold ;background-color : #F5F5F5 ;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px ;
+    font-family:Roboto, sans-serif ;
+    color :#404040;
+    position: sticky;
+top: 0;
+z-index: 1;
+@media only screen and (max-width:700px) and (min-width: 0px) {
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+}
