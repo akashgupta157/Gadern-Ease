@@ -30,7 +30,12 @@ export const Navbar = () => {
     <div className="mystyle">
       <div>
         {" "}
-        <img src="logo.jpeg" alt="" style={{ width: "250px" }} />
+        <img
+          onClick={() => nav("/")}
+          src="logo.jpeg"
+          alt=""
+          style={{ width: "250px", cursor: "pointer" }}
+        />
       </div>
 
       <Link to="/" style={{ textDecoration: "none", color: "black" }}>
@@ -61,6 +66,7 @@ export const Navbar = () => {
             <MenuItem onClick={() => nav("/blog_post")}>Add Blogs</MenuItem>
             <MenuItem
               onClick={() => {
+                nav("/");
                 dispatch(logout());
                 toast({
                   title: `Logged out successful`,
