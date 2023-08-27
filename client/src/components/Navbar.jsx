@@ -1,6 +1,6 @@
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const allname = {
   margin: "24px",
   textAlign: "center",
@@ -14,14 +14,18 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem
+  MenuItem,
+  useToast,
 } from "@chakra-ui/react";
+import { logout } from "../redux/authReducer/action";
 export const Navbar = () => {
   {
     /* <div style={mystyle}> */
   }
   const auth = useSelector((state) => state.authReducer);
-  const nav= useNavigate()
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+  const toast = useToast();
   return (
     <div className="mystyle">
       <div>
@@ -54,8 +58,21 @@ export const Navbar = () => {
             Hi {auth?.user.user.name}
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={()=>nav('/blog_post')}>Add Blogs</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={() => nav("/blog_post")}>Add Blogs</MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(logout());
+                toast({
+                  title: `Logged out successful`,
+                  status: "success",
+                  position: "top-center",
+                  duration: 2000,
+                  isClosable: true,
+                });
+              }}
+            >
+              Logout
+            </MenuItem>
           </MenuList>
         </Menu>
       ) : (
