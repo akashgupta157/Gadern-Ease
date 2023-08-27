@@ -5,6 +5,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { BlacklistModel } = require("../models/blacklist.model");
+userRouter.get('/:id', async function (req, res) {
+    const { id } = req.params
+    try {
+        const user = await UserModel.findOne({ _id: id })
+        res.json({ user });
+    } catch (error) {
+        res.json({ error: error.message });
+    }
+})
 userRouter.post("/register", async (req, res) => {
     const { email, password } = req.body;
     try {
