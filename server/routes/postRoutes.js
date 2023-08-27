@@ -6,7 +6,10 @@ const postRouter = express.Router();
 
 // TO GET ALL POST
 postRouter.get("/",async(req,res)=>{ // to get all the blog posts searching by english_name has been applied
-    const { q, flower_color, growth_height, light, garden_style } = req.query;
+    const { q, flower_color, growth_height, light, garden_style} = req.query;
+    // const page=req.query.page || 1;
+    // const limit=req.query.limit || 6;
+    // const toSkip=limit*(page-1)
     let query={}
     if(q){
         query.english_name={$regex:q,$options:"i"}
@@ -31,7 +34,7 @@ postRouter.get("/",async(req,res)=>{ // to get all the blog posts searching by e
         query["factSheet.garden_style"] = garden_style;
     }
     try {
-        const posts = await postModel.find(query);
+        const posts = await postModel.find(query)//.skip(toSkip).limit(limit);
         res.status(200).send(posts)
     } catch (error) {
         res.status(500).send({ "error": "Internal Server Error" })
@@ -67,6 +70,9 @@ postRouter.post("/add", authMiddleware, async (req, res) => {
 postRouter.get("/plant/:category", async (req, res) => { // filter based on category
     const { category } = req.params;
     const { flower_color, growth_height, light, garden_style } = req.query;
+    // const page=req.query.page || 1;
+    // const limit=req.query.limit || 6;
+    // const toSkip=limit*(page-1)
     let query = { category };
 
     if (flower_color) {
@@ -85,7 +91,7 @@ postRouter.get("/plant/:category", async (req, res) => { // filter based on cate
     // console.log("Query:", query); // Log the query
     // console.log("Params:", req.params); // Log the params
     try {
-        const posts = await postModel.find(query);
+        const posts = await postModel.find(query)//.skip(toSkip).limit(limit);
         res.status(200).send(posts);
     } catch (error) {
         console.error("Error:", error); // Log the error
