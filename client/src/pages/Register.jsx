@@ -377,7 +377,7 @@ const Div = styled.div`
         background-color: black;
         padding: 9px 15px;
         font-size: large;
-        width: 100px;
+        width: 110px;
         margin: auto;
         font-weight: bold;
         border-radius: 10px;

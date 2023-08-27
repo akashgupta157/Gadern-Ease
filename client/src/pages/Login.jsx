@@ -41,7 +41,7 @@ const Login = () => {
         dispatch(login(res.data));
         setLoading(false);
         setTimeout(() => {
-          Nav("/blog_post");
+          Nav("/");
         }, 1500);
       } else {
         toast({

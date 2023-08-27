@@ -5,10 +5,11 @@ import { Register } from "./pages/Register";
 import BlogPost from "./pages/BlogPost";
 import { Plants } from "./pages/Plants";
 import SinglePlantPage from "./components/SinglePlantPage";
-
+import { Home } from "./components/Home";
 export default function Allroutes() {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/blog_post" element={<BlogPost />} />

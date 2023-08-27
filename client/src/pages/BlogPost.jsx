@@ -224,7 +224,11 @@ const BlogPost = () => {
         />
       </FormControl>
       <br />
-      <Button type="submit" colorScheme="green">
+      <Button
+        type="submit"
+        colorScheme="green"
+        sx={{ display: "block", margin: "auto" }}
+      >
         Submit
       </Button>
     </Form>
@@ -233,6 +237,7 @@ const BlogPost = () => {
 
 export default BlogPost;
 const Form = styled.form`
+  padding-top: 30px;
   width: 50%;
   margin: auto;
   input,
