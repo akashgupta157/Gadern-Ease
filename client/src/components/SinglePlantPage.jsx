@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { url } from "./url";
-
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 function formatDate(inputDate) {
   const months = [
     "Jan",
@@ -71,7 +71,7 @@ const SinglePlantPage = () => {
 
   const getPlant = (id) => {
     axios
-      .get(`https://gardenease.onrender.com/posts/${id}`)
+      .get(`http://localhost:5000/posts/${id}`)
       .then((res) => {
         setPlant(res.data);
         getUser(res.data.userId);
@@ -86,7 +86,7 @@ const SinglePlantPage = () => {
 
   function getUser(_id) {
     axios
-      .get(`https://gardenease.onrender.com/users/${_id}`)
+      .get(`http://localhost:5000/users/${_id}`)
       .then((res) => {
         setUser(res.data);
       })
@@ -110,16 +110,19 @@ const SinglePlantPage = () => {
   const [liked, setLiked] = useState(false);
   const auth = useSelector((state) => state);
   const handleLike = async () => {
-    await axios
-      .post(`${url}/posts/like/${id}`, { id: auth.authReducer.user.user._id })
-      .then((response) => {
-        alert(response.data.message);
-        setLiked(true);
-      })
-      .catch((error) => {
-        console.error("Error liking the post", error);
-      });
-    // setLiked(!liked);
+    if (auth.authReducer.isAuthenticated) {
+      await axios
+        .post(`${url}/posts/like/${id}`, { id: auth.authReducer.user.user._id })
+        .then((response) => {
+          alert(response.data.message);
+          setLiked(true);
+        })
+        .catch((error) => {
+          console.error("Error liking the post", error);
+        });
+    } else {
+      alert("Please Login First");
+    }
   };
 
   return (
@@ -141,25 +144,29 @@ const SinglePlantPage = () => {
         <Heading>{plant.english_name}</Heading>
       </Box>
       <Box w="80%" p="10px">
-        <Flex flexWrap="wrap">
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <HStack>
             <Avatar name={plant.userName} src={user?.profilePicture} />
             <Text fontSize="18px" fontWeight="500">
               {plant.userName}
             </Text>
           </HStack>
-          <Spacer />
           <Box>
             {plant?.createdAt?.split("T")[0] && (
-              <Text marginTop="10px" justifyContent="flex-end">
+              <Text marginTop="10px">
                 Posted on {formatDate(plant?.createdAt?.split("T")[0])}
               </Text>
             )}
           </Box>
-          <Button type="button" colorScheme="blue" onClick={handleLike}>
-            {liked ? "Unlike" : "Like"}
+          {/* <Spacer /> */}
+          <Button type="button" colorScheme="white" onClick={handleLike}>
+            {liked ? (
+              <AiFillLike style={{ color: "black", fontSize: "23px" }} />
+            ) : (
+              <AiOutlineLike style={{ color: "black", fontSize: "23px" }} />
+            )}
           </Button>
-        </Flex>
+        </div>
         <Heading color="#636363" margin="5px 0px" size="md">
           {plant?.description}
         </Heading>
