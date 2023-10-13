@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "./navbar.css";
+import "./Navbar.css";
 import logo from "../assets/logo.png";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
