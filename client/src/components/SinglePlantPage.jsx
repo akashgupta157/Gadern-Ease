@@ -71,7 +71,7 @@ const SinglePlantPage = () => {
 
   const getPlant = (id) => {
     axios
-      .get(`http://localhost:5000/posts/${id}`)
+      .get(`https://gardenease.onrender.com/posts/${id}`)
       .then((res) => {
         setPlant(res.data);
         getUser(res.data.userId);
@@ -86,7 +86,7 @@ const SinglePlantPage = () => {
 
   function getUser(_id) {
     axios
-      .get(`http://localhost:5000/users/${_id}`)
+      .get(`https://gardenease.onrender.com/users/${_id}`)
       .then((res) => {
         setUser(res.data);
       })
