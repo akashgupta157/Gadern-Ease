@@ -31,36 +31,18 @@ export const Register = () => {
     return isValid;
   };
   const validatePassword = (password) => {
-    const uppercaseRegex = /[A-Z]/;
-    const lowercaseRegex = /[a-z]/;
-    const numberRegex = /\d/;
-    const specialCharRegex = /[!@#$%^&*()_+[\]{};':"\\|,.<>?]/;
     const isMinimumLength = password.length >= 8;
-    const hasUppercase = uppercaseRegex.test(password);
-    const hasLowercase = lowercaseRegex.test(password);
-    const hasNumber = numberRegex.test(password);
-    const hasSpecialChar = specialCharRegex.test(password);
     setPasswordErrors({
       isMinimumLength,
-      hasUppercase,
-      hasLowercase,
-      hasNumber,
-      hasSpecialChar,
     });
-    return (
-      isMinimumLength &&
-      hasUppercase &&
-      hasLowercase &&
-      hasNumber &&
-      hasSpecialChar
-    );
+    return isMinimumLength;
   };
   const validateName = (name) => {
-    const nameRegex = /^[A-Za-z\s]+$/;
+    // const nameRegex = /^[A-Za-z\s]+$/;
     const isValidLength = name.trim().length >= 3;
-    const isValidFormat = nameRegex.test(name);
-    setIsValidName(isValidLength && isValidFormat);
-    return isValidLength && isValidFormat;
+    // const isValidFormat = nameRegex.test(name);
+    setIsValidName(isValidLength);
+    return isValidLength;
   };
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
@@ -217,30 +199,6 @@ export const Register = () => {
             <p>
               <BiErrorCircle />
               Password should be at least 8 characters long.
-            </p>
-          )}
-          {!passwordErrors.hasUppercase && (
-            <p>
-              <BiErrorCircle />
-              Password should include at least one uppercase letter.
-            </p>
-          )}
-          {!passwordErrors.hasLowercase && (
-            <p>
-              <BiErrorCircle />
-              Password should include at least one lowercase letter.
-            </p>
-          )}
-          {!passwordErrors.hasNumber && (
-            <p>
-              <BiErrorCircle />
-              Password should include at least one number.
-            </p>
-          )}
-          {!passwordErrors.hasSpecialChar && (
-            <p>
-              <BiErrorCircle />
-              Password should include at least one special character.
             </p>
           )}
           <button type="submit">
