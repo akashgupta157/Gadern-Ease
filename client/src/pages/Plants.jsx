@@ -24,7 +24,7 @@ export const Plants = () => {
     console.log(obj);
     try {
       const res = await axios.get(
-        `http://localhost:5000/posts/plant/${category}`,
+        `https://gardenease.onrender.com/posts/plant/${category}`,
         obj
       );
       setFetchedData(res.data);
