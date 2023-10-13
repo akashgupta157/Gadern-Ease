@@ -1,30 +1,97 @@
-* {
-  font-family: Roboto, sans-serif;
-}
-
-.mystyle {
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
   display: flex;
   justify-content: space-between;
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-  background-color: #f5f5f5;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  font-family: Roboto, sans-serif;
-  color: #404040;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding-right: 10px;
-  @media only screen and (max-width: 700px) and (min-width: 0px) {
-    flex-direction: column;
-    position: relative;
-    width: 100%;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar {
+  height: 60px;
+  position: relative;
+}
+
+.logo {
+}
+
+.menu-icon {
+  display: none;
+}
+
+.nav-elements {
+}
+
+.nav-elements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.nav-elements ul li:not(:last-child) {
+  margin-right: 60px;
+}
+
+.nav-elements ul a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #2f234f;
+  text-decoration: none;
+}
+
+.nav-elements ul a.active {
+  color: #574c4c;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-elements ul a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #574c4c;
+}
+
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
   }
 }
-.mystyle h3:hover {
-  border-bottom:3px solid #6db644;
-}
-.mystyle h3 {
-  border-bottom:3px solid white;
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: rgb(228, 222, 222);
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .nav-elements.active {
+    width: 270px;
+  }
+
+  .nav-elements ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-elements ul li {
+    margin-right: unset;
+    margin-top: 22px;
+    margin-left: 20px;
+  }
 }
